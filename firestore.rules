@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Function to check if request is authenticated admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+    
+    // Function to validate incoming lead submission from public contact form
+    function isValidLead() {
+      let data = request.resource.data;
+      return data.fullName is string && data.fullName.size() >= 2 && data.fullName.size() <= 100
+          && data.workEmail is string && data.workEmail.matches('^.+@.+\\..+$')
+          && data.budget is string
+          && data.services is list
+          && data.status == 'new';
+    }
+
+    // Leads collection: Public can create with validation; Only Admin can read/update/delete
+    match /leads/{leadId} {
+      allow create: if isValidLead();
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Projects collection: Public can read published case studies; Only Admin can write
+    match /projects/{projectId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Analytics / Telemetry events
+    match /analytics_events/{eventId} {
+      allow create: if request.resource.data.eventType is string;
+      allow read, write: if isAdmin();
+    }
+    
+    // System Settings and Admin metadata
+    match /system/{docId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royce Digital Solutions — Amuntum Royce Afegnui (+237 651 094 432)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#2563EB', hover: '#1D4ED8' },
+            secondary: '#0F172A',
+            accent: { DEFAULT: '#06B6D4', glow: '#22D3EE' },
+            canvas: { light: '#FFFFFF', dark: '#020617' },
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5), inset 0 1px 0 0 rgba(255,255,255,0.12);
+    }
+    .light .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05), inset 0 1px 0 0 rgba(255,255,255,0.8);
+    }
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .light .glass-nav {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-[#020617] text-slate-100 min-h-screen flex flex-col transition-colors duration-300 selection:bg-cyan-500 selection:text-black">
+
+  <!-- TOP 20% DISCOUNT & WHATSAPP STRIP -->
+  <div class="bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 text-white text-xs font-semibold py-2 px-4 text-center flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+    <span>🎉 <strong>20% First-Time Client Discount Active</strong> on all development sprints!</span>
+    <span class="opacity-60">•</span>
+    <span>WhatsApp / MoMo Line: <a href="https://wa.me/237651094432?text=Hello%20Amuntum%20Royce" target="_blank" class="underline font-bold">+237 651 094 432</a></span>
+    <span class="opacity-60">•</span>
+    <span>Bamenda, Cameroon</span>
+  </div>
+
+  <!-- FLOATING NAVIGATION DOCK -->
+  <header class="sticky top-0 z-50 px-4 sm:px-8 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Logo -->
+      <button onclick="navigate('home')" class="flex items-center gap-3 text-left">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <span class="font-extrabold text-white text-lg">R</span>
+        </div>
+        <div>
+          <span class="text-base font-bold text-white tracking-tight block">Royce Digital</span>
+          <span class="text-[10px] tracking-wider uppercase font-semibold text-slate-400 block -mt-1">Bamenda, Cameroon</span>
+        </div>
+      </button>
+
+      <!-- Center Links -->
+      <nav class="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full glass-nav shadow-2xl">
+        <button onclick="navigate('home')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-white bg-blue-600" data-page="home">Home</button>
+        <button onclick="navigate('about')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="about">About</button>
+        <button onclick="navigate('services')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="services">Services</button>
+        <button onclick="navigate('portfolio')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="portfolio">Portfolio</button>
+        <button onclick="navigate('pricing')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="pricing">Pricing (20% Off)</button>
+        <button onclick="navigate('testimonials')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="testimonials">Testimonials</button>
+        <button onclick="navigate('blog')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="blog">Blog</button>
+        <button onclick="navigate('contact')" class="nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white" data-page="contact">Contact</button>
+        <button onclick="navigate('admin')" class="nav-btn px-3 py-1.5 rounded-full text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1" data-page="admin">
+          <span>Portal</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-400/20 font-bold">Admin</span>
+        </button>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" class="p-2 rounded-xl bg-slate-800 border border-white/10 text-slate-300 hover:text-white" title="Toggle Dark/Light Mode">
+          <i data-lucide="sun" class="w-4 h-4"></i>
+        </button>
+        <a href="https://wa.me/237651094432?text=Hello%20Amuntum%20Royce" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-md">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i>
+          <span>WhatsApp Royce</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- DYNAMIC PAGES CONTAINER -->
+  <main id="app" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <!-- Injected by JavaScript -->
+  </main>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/237651094432?text=Hello%20Amuntum%20Royce,%20I'd%20like%20to%20discuss%20a%20project%20and%20claim%20my%2020%25%20discount." target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-2xl hover:scale-105 transition-transform">
+      <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+      <span class="hidden sm:inline">WhatsApp (+237 651 094 432)</span>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-slate-950/80 py-10 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>Royce Digital Solutions (Amuntum Royce Afegnui) • Commercial Ave, Bamenda, Cameroon</div>
+      <div>MTN MoMo & WhatsApp: <strong class="text-white">+237 651 094 432</strong> • amuntumroyce@gmail.com</div>
+    </div>
+  </footer>
+
+  <script>
+    let currentPage = 'home';
+    let isDark = true;
+
+    function toggleTheme() {
+      isDark = !isDark;
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.body.className = "bg-[#020617] text-slate-100 min-h-screen flex flex-col transition-colors duration-300";
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        document.body.className = "bg-white text-slate-900 min-h-screen flex flex-col transition-colors duration-300";
+      }
+      lucide.createIcons();
+    }
+
+    const pages = {
+      home: `
+        <div class="space-y-24">
+          <div class="text-center max-w-4xl mx-auto pt-12 pb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-white/10 mb-8">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-semibold uppercase text-emerald-400">20% First-Time Client Discount Active</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+              Turning Ideas Into Powerful <span class="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 bg-clip-text text-transparent">Digital Solutions</span>
+            </h1>
+            <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              Websites, Applications, Branding, Automation, and AI Solutions for Businesses Ready to Grow.
+            </p>
+            <p class="mt-2 text-xs sm:text-sm font-semibold text-cyan-400">
+              Directly Architected by Amuntum Royce Afegnui (Bamenda, Cameroon)
+            </p>
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+              <button onclick="navigate('contact')" class="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-xl shadow-blue-500/25 flex items-center gap-2">
+                <span>Start Your Project (20% Off)</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <a href="https://wa.me/237651094432?text=Hello%20Amuntum%20Royce" target="_blank" class="px-7 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                <span>WhatsApp: +237 651 094 432</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `,
+      about: `
+        <div class="space-y-12 max-w-4xl mx-auto pt-6">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            <span>Commercial Avenue, Bamenda, Cameroon</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-white">Engineering World-Class Digital Products from Bamenda, Cameroon.</h1>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            Founded by <strong>Amuntum Royce Afegnui</strong>, Royce Digital Solutions delivers international Apple-grade digital design and software engineering at honest, accessible pricing tailored for Cameroonian entrepreneurs and international clients alike.
+          </p>
+          <div class="p-6 rounded-2xl glass-card">
+            <h3 class="text-lg font-bold text-white mb-2">Direct Contact & Payments</h3>
+            <p class="text-xs text-slate-400">Phone & WhatsApp: <b>+237 651 094 432</b> • MTN MoMo: <b>+237 651 094 432</b> • Email: <b>amuntumroyce@gmail.com</b></p>
+          </div>
+        </div>
+      `,
+      services: `
+        <div class="space-y-12 pt-6">
+          <h1 class="text-4xl font-extrabold text-white">Our 6 Core Capabilities</h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-bold text-white mb-2">1. Website Development</h3><p class="text-xs text-slate-400 mb-4">Fast Next.js websites with WhatsApp integration.</p><span class="text-xs font-mono text-cyan-400">From 140,000 FCFA (20% Off)</span></div>
+            <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-bold text-white mb-2">2. Mobile Apps (Flutter)</h3><p class="text-xs text-slate-400 mb-4">Native 60fps Android & iOS apps with offline sync.</p><span class="text-xs font-mono text-cyan-400">Custom Scope</span></div>
+            <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-bold text-white mb-2">3. E-Commerce & MoMo</h3><p class="text-xs text-slate-400 mb-4">Online store with automated MTN Mobile Money & Orange Money.</p><span class="text-xs font-mono text-cyan-400">From 384,000 FCFA (20% Off)</span></div>
+          </div>
+        </div>
+      `,
+      portfolio: `
+        <div class="space-y-12 pt-6">
+          <h1 class="text-4xl font-extrabold text-white">Selected Works</h1>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-card p-6 rounded-2xl"><div class="text-xs font-bold text-cyan-400 mb-1">+340% Trade Velocity</div><h3 class="text-xl font-bold text-white mb-2">Grassfield Logistics & MoMo</h3><p class="text-xs text-slate-400">Automated agricultural marketplace connecting farmers in Bamenda with buyers in Douala.</p></div>
+            <div class="glass-card p-6 rounded-2xl"><div class="text-xs font-bold text-cyan-400 mb-1">Clinical AI</div><h3 class="text-xl font-bold text-white mb-2">Aura Health Assistant</h3><p class="text-xs text-slate-400">Mobile app deployed across medical centers in Central Africa.</p></div>
+          </div>
+        </div>
+      `,
+      pricing: `
+        <div class="space-y-12 pt-6 text-center max-w-5xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold">
+            🎉 20% FIRST-TIME CLIENT DISCOUNT ACTIVE
+          </div>
+          <h1 class="text-4xl font-extrabold text-white mt-1">Honest Cameroonian & Global Pricing</h1>
+          <p class="text-xs text-slate-400">MTN Mobile Money accepted to: <strong class="text-white">+237 651 094 432</strong> (Amuntum Royce Afegnui)</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-emerald-400 uppercase">Save 20%</span>
+                <h3 class="text-xl font-bold text-white">Starter Launch</h3>
+                <div class="my-3">
+                  <span class="text-xs line-through text-slate-500">175,000 FCFA</span>
+                  <div class="text-3xl font-extrabold font-mono text-white">140,000 FCFA</div>
+                  <span class="text-xs text-slate-400">(~$230 USD)</span>
+                </div>
+                <p class="text-xs text-slate-400 mb-6">Website, WhatsApp chat, .cm/.com domain, 5 emails, and 30 days free support.</p>
+              </div>
+              <button onclick="navigate('contact')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">Claim Starter (20% Off)</button>
+            </div>
+            <div class="glass-card p-6 rounded-2xl ring-2 ring-cyan-400 flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-cyan-400 uppercase">Most Popular • Save 20%</span>
+                <h3 class="text-xl font-bold text-white">Growth & E-Commerce</h3>
+                <div class="my-3">
+                  <span class="text-xs line-through text-slate-500">480,000 FCFA</span>
+                  <div class="text-3xl font-extrabold font-mono text-white">384,000 FCFA</div>
+                  <span class="text-xs text-slate-400">(~$630 USD)</span>
+                </div>
+                <p class="text-xs text-slate-400 mb-6">Store with automated MTN MoMo & Orange Money checkout + Admin inventory portal.</p>
+              </div>
+              <button onclick="navigate('contact')" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white">Claim Growth (20% Off)</button>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-purple-400 uppercase">Custom Sprint</span>
+                <h3 class="text-xl font-bold text-white">Enterprise & Mobile</h3>
+                <div class="my-3">
+                  <span class="text-xs line-through text-slate-500">1,450,000 FCFA</span>
+                  <div class="text-3xl font-extrabold font-mono text-white">1,160,000 FCFA+</div>
+                  <span class="text-xs text-slate-400">(~$1,900+ USD)</span>
+                </div>
+                <p class="text-xs text-slate-400 mb-6">Native Android & iOS Flutter app + AI automation workflows and priority SLA.</p>
+              </div>
+              <button onclick="navigate('contact')" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">Consult Amuntum Royce</button>
+            </div>
+          </div>
+        </div>
+      `,
+      testimonials: `
+        <div class="space-y-12 pt-6">
+          <h1 class="text-4xl font-extrabold text-white">Client Feedback</h1>
+          <div class="glass-card p-6 rounded-2xl"><div class="text-amber-400 text-xs mb-2">★★★★★ 5.0</div><p class="text-sm text-slate-300 italic mb-3">"Amuntum Royce built our store with MTN MoMo payment in 2 weeks. The 20% first-time discount made it an unbeatable deal."</p><div class="text-xs font-bold text-white">Brenda N. — Limbe, Cameroon</div></div>
+        </div>
+      `,
+      blog: `
+        <div class="space-y-8 pt-6">
+          <h1 class="text-4xl font-extrabold text-white">Tech Radar</h1>
+          <div class="glass-card p-6 rounded-2xl"><h3 class="text-xl font-bold text-white">Integrating MTN MoMo APIs in Modern Next.js Apps</h3><p class="text-xs text-slate-400 mt-2">How we guarantee zero dropped transactions on Cameroonian mobile networks.</p></div>
+        </div>
+      `,
+      contact: `
+        <div class="space-y-8 pt-6 max-w-4xl mx-auto">
+          <div>
+            <span class="text-xs font-bold uppercase text-emerald-400 tracking-widest">20% Discount Active</span>
+            <h1 class="text-4xl font-extrabold text-white mt-1">Contact Amuntum Royce Afegnui</h1>
+            <p class="text-xs text-slate-400 mt-1">Bamenda, Cameroon • Direct WhatsApp & MoMo: <strong class="text-white">+237 651 094 432</strong></p>
+          </div>
+          <div class="glass-card p-8 rounded-2xl" id="contact-container">
+            <form onsubmit="handleTestLead(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input required id="lead-name" type="text" placeholder="Your Name *" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs text-white">
+                <input required id="lead-email" type="email" placeholder="Your Email *" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs text-white">
+              </div>
+              <input id="lead-phone" type="text" placeholder="WhatsApp / Phone Number" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs text-white">
+              <textarea id="lead-msg" rows="3" placeholder="Brief project description..." class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs text-white"></textarea>
+              <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-bold text-xs shadow-lg">
+                Submit Inquiry to Amuntum Royce (20% Off Claimed)
+              </button>
+            </form>
+          </div>
+        </div>
+      `,
+      admin: `
+        <div class="space-y-8 pt-6">
+          <h1 class="text-3xl font-extrabold text-white">Executive Portal — Amuntum Royce Afegnui</h1>
+          <p class="text-xs text-slate-400">Direct Line: +237 651 094 432 • Database: Royces-Digital-Solutions</p>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-5 rounded-xl"><div class="text-xs text-slate-400">Pipeline</div><div class="text-2xl font-bold font-mono text-white mt-1">18,500,000 FCFA</div></div>
+            <div class="glass-card p-5 rounded-xl"><div class="text-xs text-slate-400">Discounts</div><div class="text-2xl font-bold font-mono text-emerald-400 mt-1">20% First-Time</div></div>
+            <div class="glass-card p-5 rounded-xl"><div class="text-xs text-slate-400">MoMo Account</div><div class="text-sm font-mono font-bold text-white mt-2">+237 651 094 432</div></div>
+            <div class="glass-card p-5 rounded-xl"><div class="text-xs text-slate-400">Status</div><div class="text-sm font-bold text-emerald-400 mt-2">● Online</div></div>
+          </div>
+        </div>
+      `
+    };
+
+    function navigate(pageId) {
+      currentPage = pageId;
+      document.getElementById('app').innerHTML = pages[pageId] || pages.home;
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-page') === pageId) {
+          btn.className = "nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-white bg-blue-600";
+        } else {
+          btn.className = "nav-btn px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white";
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    function handleTestLead(e) {
+      e.preventDefault();
+      const name = document.getElementById('lead-name').value;
+      document.getElementById('contact-container').innerHTML = `
+        <div class="text-center py-10">
+          <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 font-bold text-xl">✓</div>
+          <h3 class="text-2xl font-bold text-white">Inquiry Received with 20% Discount</h3>
+          <p class="text-xs text-slate-400 mt-2 max-w-sm mx-auto">
+            Thank you, <b>${name}</b>. Amuntum Royce Afegnui will review your brief within 4 business hours. You can also message directly on WhatsApp at <b>+237 651 094 432</b>.
+          </p>
+          <button onclick="navigate('contact')" class="mt-6 px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-white hover:bg-slate-700">Submit Another</button>
+        </div>
+      `;
+    }
+
+    navigate('home');
+  </script>
+</body>
+</html>
