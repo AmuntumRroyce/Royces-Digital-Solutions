@@ -3,13 +3,13 @@
  * or directly with Firebase when serverless.
  */
 
-const API_BASE = '/api';
+const API_BASE = `${(import.meta.env.VITE_API_URL || '').replace(/\/+$/, '')}/api`;
 
 export const api = {
-  // Submit new lead with fast 2.5s timeout protection
+  // Wait for the backend response so the form can report the actual submission result.
   submitLead: async (leadData) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2500);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
       const res = await fetch(`${API_BASE}/leads`, {
@@ -18,28 +18,27 @@ export const api = {
         body: JSON.stringify(leadData),
         signal: controller.signal,
       });
-      clearTimeout(timeoutId);
 
-      if (!res.ok) throw new Error('Backend returned status ' + res.status);
-      return await res.json();
-    } catch (err) {
-      clearTimeout(timeoutId);
-      console.warn('Backend API request bypassed or timed out, operating in client-first mode:', err.message);
-      
-      // Save to local cache so the lead is never lost
+      let result;
       try {
-        const existing = JSON.parse(localStorage.getItem('royce_cached_leads') || '[]');
-        existing.unshift({
-          id: `lead-${Date.now()}`,
-          ...leadData,
-          createdAt: new Date().toISOString(),
-        });
-        localStorage.setItem('royce_cached_leads', JSON.stringify(existing));
-      } catch (e) {
-        // Ignore localStorage error
+        result = await res.json();
+      } catch {
+        throw new Error('The inquiry server returned an invalid response. Check the backend URL configuration.');
+      }
+      if (!res.ok) {
+        const error = new Error(result.message || result.error || `Request failed (${res.status})`);
+        error.leadReceived = result.leadReceived === true;
+        throw error;
       }
 
-      return { success: true, mode: 'local_cached', data: leadData };
+      return result;
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        throw new Error('The server took too long to respond. Please try again.');
+      }
+      throw err;
+    } finally {
+      clearTimeout(timeoutId);
     }
   },
 

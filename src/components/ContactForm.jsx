@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { api } from '../services/api';
-import { db } from '../services/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { CheckCircle2, Loader2, Send, ShieldCheck, MessageCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Loader2, Send, ShieldCheck, MessageCircle } from 'lucide-react';
 
 export const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submissionError, setSubmissionError] = useState('');
+  const [emailWarning, setEmailWarning] = useState('');
   const [services, setServices] = useState(['Website Development']);
   const [budget, setBudget] = useState('200k - 500k FCFA ($300 - $800)');
   const [formData, setFormData] = useState({
@@ -42,6 +42,8 @@ export const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setSubmissionError('');
+    setEmailWarning('');
 
     const leadPayload = {
       ...formData,
@@ -52,46 +54,16 @@ export const ContactForm = () => {
       location: 'Cameroon / Global',
     };
 
-    // Helper timeout wrapper: never lets any promise hang longer than 1500ms
-    const withTimeout = (promise, ms = 1500) => {
-      return Promise.race([
-        promise,
-        new Promise((resolve) => setTimeout(() => resolve({ timedOut: true }), ms))
-      ]);
-    };
-
     try {
-      // 1. Immediate local cache preservation (guarantees zero data loss)
-      try {
-        const cached = JSON.parse(localStorage.getItem('royce_cached_leads') || '[]');
-        cached.unshift({ id: `lead-${Date.now()}`, ...leadPayload });
-        localStorage.setItem('royce_cached_leads', JSON.stringify(cached));
-      } catch (cacheErr) {}
-
-      // 2. Transmit to Firebase Firestore with 1.5s timeout protection (avoids SDK hanging on unconfigured keys)
-      const firestoreTask = (async () => {
-        try {
-          await addDoc(collection(db, 'leads'), {
-            ...leadPayload,
-            createdAt: serverTimestamp(),
-          });
-          console.log('✅ Lead saved to Cloud Firestore (Royces-Digital-Solutions)');
-        } catch (fbErr) {
-          console.warn('ℹ️ Firestore direct write skipped or local mock used:', fbErr.message);
-        }
-      })();
-
-      // 3. Transmit to backend API with 2.5s timeout protection
-      const apiTask = api.submitLead(leadPayload);
-
-      // Run both tasks with rapid timeout protection
-      await withTimeout(Promise.allSettled([firestoreTask, apiTask]), 1500);
-
-      // Transition to success screen seamlessly
+      await api.submitLead(leadPayload);
       setSubmitted(true);
     } catch (err) {
-      console.error('Submission handled with fallback:', err);
-      setSubmitted(true);
+      if (err.leadReceived) {
+        setEmailWarning('Your inquiry was received, but the email notification could not be sent. Please contact us directly if you need confirmation.');
+        setSubmitted(true);
+      } else {
+        setSubmissionError(err.message || 'We could not submit your inquiry. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -108,12 +80,18 @@ export const ContactForm = () => {
           <CheckCircle2 className="w-8 h-8 text-emerald-500" />
         </div>
         <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-          Inquiry Successfully Transmitted!
+          {emailWarning ? 'Inquiry Received' : 'Inquiry Successfully Submitted!'}
         </h3>
         <p className="mt-3 text-slate-600 dark:text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-          Thank you, <span className="font-semibold text-primary">{formData.fullName || 'Partner'}</span>. 
-          Your brief has been logged and routed to <strong>Amuntum Royce Afegnui</strong> at <code className="text-primary font-mono font-bold">amuntumroyce@gmail.com</code>.
+          Thank you, <span className="font-semibold text-primary">{formData.fullName || 'Partner'}</span>. Your inquiry was received.
         </p>
+        {emailWarning ? (
+          <p role="alert" className="mt-3 text-sm text-amber-700 dark:text-amber-400">{emailWarning}</p>
+        ) : (
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            A confirmation email was accepted for delivery to <strong>{formData.workEmail}</strong>. Please check your spam folder if it is not in your inbox.
+          </p>
+        )}
 
         {/* 20% Discount Confirmation */}
         <div className="my-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 max-w-sm mx-auto text-xs text-emerald-600 dark:text-emerald-400 font-bold">
@@ -135,6 +113,7 @@ export const ContactForm = () => {
           <button
             onClick={() => {
               setSubmitted(false);
+              setEmailWarning('');
               setFormData({ fullName: '', workEmail: '', phone: '', company: '', message: '' });
             }}
             className="w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 transition-colors"
@@ -282,6 +261,12 @@ export const ContactForm = () => {
         />
       </div>
 
+      {submissionError && (
+        <p role="alert" className="mb-4 text-sm text-red-600 dark:text-red-400">
+          {submissionError}
+        </p>
+      )}
+
       <button
         type="submit"
         disabled={loading}
@@ -290,7 +275,7 @@ export const ContactForm = () => {
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin" />
-            <span>Transmitting Lead (Sub-Second)...</span>
+            <span>Submitting Inquiry...</span>
           </>
         ) : (
           <>

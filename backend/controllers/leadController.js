@@ -36,11 +36,17 @@ export const createLead = async (req, res) => {
       await handleInboundLeadEmails(lead);
     } catch (emailErr) {
       console.error('Email notification dispatch error:', emailErr.message);
+      return res.status(502).json({
+        success: false,
+        leadReceived: true,
+        error: 'Email Delivery Failed',
+        message: 'Your inquiry was received, but we could not send the email notifications. Please contact us directly if you need confirmation.',
+      });
     }
 
     return res.status(201).json({
       success: true,
-      message: 'Inquiry received and processed. Confirmation email dispatched.',
+      message: 'Inquiry received and email notifications accepted for delivery.',
       leadId: docId,
       data: lead,
     });
